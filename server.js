@@ -1,43 +1,55 @@
 import express from "express";
-import { createServer } from "http";
+import http from "http";
 import { Server } from "socket.io";
-import Redis from "ioredis";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, { cors: { origin: "*" } });
-
-app.use(express.json());
-
-const redis = new Redis(process.env.REDIS_URL);
-const TTL_SECONDS = process.env.TTL_SECONDS || 1800;
-
-app.post("/api/markers", async (req, res) => {
-  const { lat, lng, color } = req.body;
-  const id = Date.now();
-  const marker = { id, lat, lng, color, created_at: Date.now() };
-  await redis.set(`marker:${id}`, JSON.stringify(marker), "EX", TTL_SECONDS);
-  io.emit("marker:created", marker);
-  res.json({ success: true, marker });
-});
-
-app.get("/api/markers", async (req, res) => {
-  const keys = await redis.keys("marker:*");
-  const markers = await Promise.all(
-    keys.map(async key => JSON.parse(await redis.get(key)))
-  );
-  res.json(markers);
-});
-
-// Обробка TTL видалення
-const sub = new Redis(process.env.REDIS_URL);
-sub.psubscribe("__keyevent@0__:expired");
-sub.on("pmessage", (pattern, channel, key) => {
-  if (key.startsWith("marker:")) {
-    const id = key.split(":")[1];
-    io.emit("marker:removed", parseInt(id));
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
   }
 });
 
+app.use(express.json());
+
+// ===== API =====
+app.get("/api/markers", (req, res) => {
+  res.json([]); // тут твоя логіка з Redis / памʼяті
+});
+
+app.post("/api/markers", (req, res) => {
+  const marker = {
+    id: crypto.randomUUID(),
+    ...req.body,
+    created_at: new Date().toISOString()
+  };
+
+  io.emit("marker:created", marker);
+  res.json(marker);
+});
+
+// ===== SOCKET =====
+io.on("connection", socket => {
+  console.log("🟢 Client connected:", socket.id);
+});
+
+// ===== РОЗДАЧА ФРОНТЕНДУ =====
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Папка зі зібраним Vite
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Головний маршрут
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+// ===== START =====
 const PORT = process.env.PORT || 3000;
-httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
