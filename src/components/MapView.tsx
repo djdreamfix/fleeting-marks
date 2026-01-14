@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MarkerLayer } from './MarkerLayer';
 import type { Marker } from '@/types/marker';
@@ -7,6 +7,7 @@ import type { Marker } from '@/types/marker';
 interface MapViewProps {
   center: { lat: number; lng: number };
   markers: Marker[];
+  onMapClick?: (lat: number, lng: number) => void;
 }
 
 const MapController = ({ center }: { center: { lat: number; lng: number } }) => {
@@ -23,7 +24,19 @@ const MapController = ({ center }: { center: { lat: number; lng: number } }) => 
   return null;
 };
 
-export const MapView = ({ center, markers }: MapViewProps) => {
+const MapClickHandler = ({ onMapClick }: { onMapClick?: (lat: number, lng: number) => void }) => {
+  useMapEvents({
+    click(e) {
+      if (!onMapClick) return;
+      const { lat, lng } = e.latlng;
+      onMapClick(lat, lng);
+    },
+  });
+
+  return null;
+};
+
+export const MapView = ({ center, markers, onMapClick }: MapViewProps) => {
   return (
     <MapContainer
       center={[center.lat, center.lng]}
@@ -36,6 +49,7 @@ export const MapView = ({ center, markers }: MapViewProps) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <MapController center={center} />
+      <MapClickHandler onMapClick={onMapClick} />
       <MarkerLayer markers={markers} />
     </MapContainer>
   );
