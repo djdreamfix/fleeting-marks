@@ -17,7 +17,7 @@ app.use(express.json());
 
 // ===== API =====
 app.get("/api/markers", (req, res) => {
-  res.json([]); // тут твоя логіка з Redis / памʼяті
+  res.json([]); // Fallback
 });
 
 app.post("/api/markers", (req, res) => {
@@ -49,7 +49,7 @@ app.get("*", (req, res) => {
 });
 
 // ===== START =====
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+const PORT = 5000;
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
