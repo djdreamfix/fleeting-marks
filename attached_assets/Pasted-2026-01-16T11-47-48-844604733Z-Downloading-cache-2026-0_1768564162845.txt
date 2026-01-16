@@ -1,0 +1,47 @@
+2026-01-16T11:47:48.844604733Z ==> Downloading cache...
+2026-01-16T11:47:48.883174736Z ==> Cloning from https://github.com/djdreamfix/fleeting-marks
+2026-01-16T11:47:49.160954001Z ==> Checking out commit 4f9fbb0b6005197fe9d732699624c1b00b6cdf7d in branch main
+2026-01-16T11:47:53.952809473Z ==> Downloaded 90MB in 3s. Extraction took 2s.
+2026-01-16T11:47:57.440853833Z ==> Using Node.js version 22.16.0 (default)
+2026-01-16T11:47:57.465336892Z ==> Docs on specifying a Node.js version: https://render.com/docs/node-version
+2026-01-16T11:47:57.580436569Z ==> Running build command 'npm install npm run build'...
+2026-01-16T11:48:03.003323013Z npm error code ERESOLVE
+2026-01-16T11:48:03.003406755Z npm error ERESOLVE could not resolve
+2026-01-16T11:48:03.003414575Z npm error
+2026-01-16T11:48:03.003420115Z npm error While resolving: react-leaflet@5.0.0
+2026-01-16T11:48:03.003425615Z npm error Found: react@18.3.1
+2026-01-16T11:48:03.003430615Z npm error node_modules/react
+2026-01-16T11:48:03.003436145Z npm error   peer react@">=16.8.0" from @floating-ui/react-dom@2.1.4
+2026-01-16T11:48:03.003440996Z npm error   node_modules/@floating-ui/react-dom
+2026-01-16T11:48:03.003445836Z npm error     @floating-ui/react-dom@"^2.0.0" from @radix-ui/react-popper@1.2.7
+2026-01-16T11:48:03.003451156Z npm error     node_modules/@radix-ui/react-popper
+2026-01-16T11:48:03.003456516Z npm error       @radix-ui/react-popper@"1.2.7" from @radix-ui/react-hover-card@1.1.14
+2026-01-16T11:48:03.003461286Z npm error       node_modules/@radix-ui/react-hover-card
+2026-01-16T11:48:03.003490577Z npm error         @radix-ui/react-hover-card@"latest" from the root project
+2026-01-16T11:48:03.003495597Z npm error       4 more (@radix-ui/react-menu, @radix-ui/react-popover, ...)
+2026-01-16T11:48:03.003501467Z npm error   peer react@"^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" from @radix-ui/react-accordion@1.2.11
+2026-01-16T11:48:03.003506377Z npm error   node_modules/@radix-ui/react-accordion
+2026-01-16T11:48:03.003511317Z npm error     @radix-ui/react-accordion@"latest" from the root project
+2026-01-16T11:48:03.003516307Z npm error   76 more (@radix-ui/react-alert-dialog, @radix-ui/react-arrow, ...)
+2026-01-16T11:48:03.003521077Z npm error
+2026-01-16T11:48:03.003526397Z npm error Could not resolve dependency:
+2026-01-16T11:48:03.003531227Z npm error peer react@"^19.0.0" from react-leaflet@5.0.0
+2026-01-16T11:48:03.003535867Z npm error node_modules/react-leaflet
+2026-01-16T11:48:03.003540698Z npm error   react-leaflet@"latest" from the root project
+2026-01-16T11:48:03.003545598Z npm error
+2026-01-16T11:48:03.003550148Z npm error Conflicting peer dependency: react@19.2.3
+2026-01-16T11:48:03.003554938Z npm error node_modules/react
+2026-01-16T11:48:03.003559698Z npm error   peer react@"^19.0.0" from react-leaflet@5.0.0
+2026-01-16T11:48:03.003564668Z npm error   node_modules/react-leaflet
+2026-01-16T11:48:03.003569378Z npm error     react-leaflet@"latest" from the root project
+2026-01-16T11:48:03.003574348Z npm error
+2026-01-16T11:48:03.003579348Z npm error Fix the upstream dependency conflict, or retry
+2026-01-16T11:48:03.003584198Z npm error this command with --force or --legacy-peer-deps
+2026-01-16T11:48:03.003588948Z npm error to accept an incorrect (and potentially broken) dependency resolution.
+2026-01-16T11:48:03.003598659Z npm error
+2026-01-16T11:48:03.003603699Z npm error
+2026-01-16T11:48:03.003608889Z npm error For a full report see:
+2026-01-16T11:48:03.00363542Z npm error /opt/render/.cache/_logs/2026-01-16T11_47_57_644Z-eresolve-report.txt
+2026-01-16T11:48:03.00464545Z npm error A complete log of this run can be found in: /opt/render/.cache/_logs/2026-01-16T11_47_57_644Z-debug-0.log
+2026-01-16T11:48:03.118817268Z ==> Build failed 😞
+2026-01-16T11:48:03.118836168Z ==> Common ways to troubleshoot your deploy: https://render.com/docs/troubleshooting-deploys
